@@ -1,6 +1,12 @@
 // =========================================================
-//  BELLA DAY - script.js (OPTIMIZADO)
+//  BELLA DAY - script.js (OPTIMIZADO Y CORREGIDO)
 // =========================================================
+
+// =========================================================
+//  DECLARACIONES GLOBALES (antes de cualquier uso)
+// =========================================================
+const hamburger = document.getElementById('hamburger');
+const headerNavEl = document.getElementById('headerNav');
 
 // ===== Año dinámico en el footer =====
 const yearEl = document.getElementById('year');
@@ -12,6 +18,19 @@ if (yearEl) {
 //  DETECCIÓN DE PREFERENCIAS DE MOVIMIENTO
 // =========================================================
 const prefiereReducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// =========================================================
+//  FUNCIÓN AUXILIAR: CERRAR MENÚ MÓVIL
+// =========================================================
+function cerrarMenuMovil() {
+    if (headerNavEl && headerNavEl.classList.contains('open')) {
+        headerNavEl.classList.remove('open');
+    }
+    if (hamburger && hamburger.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+}
 
 // =========================================================
 //  BOTONES "COPIAR" INDIVIDUALES EN TRANSFERENCIA
@@ -188,12 +207,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
         e.preventDefault();
 
-        // Cerrar menú móvil inmediatamente (antes del scroll)
-        if (hamburger && headerNavEl && headerNavEl.classList.contains('open')) {
-            headerNavEl.classList.remove('open');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-        }
+        // Cerrar menú móvil inmediatamente (usando la función auxiliar)
+        cerrarMenuMovil();
 
         const headerEl = document.querySelector('.header');
         const headerHeight = headerEl ? headerEl.offsetHeight : 0;
@@ -246,9 +261,6 @@ window.addEventListener('resize', () => {
 // =========================================================
 //  MENÚ HAMBURGUESA (solo móvil)
 // =========================================================
-const hamburger = document.getElementById('hamburger');
-const headerNavEl = document.getElementById('headerNav');
-
 if (hamburger && headerNavEl) {
     hamburger.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -259,26 +271,20 @@ if (hamburger && headerNavEl) {
 
     headerNavEl.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            headerNavEl.classList.remove('open');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
+            cerrarMenuMovil();
         });
     });
 
     document.addEventListener('click', (e) => {
         if (!headerNavEl.contains(e.target) && !hamburger.contains(e.target)) {
-            headerNavEl.classList.remove('open');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
+            cerrarMenuMovil();
         }
     });
 
     // Cerrar menú al presionar ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && headerNavEl.classList.contains('open')) {
-            headerNavEl.classList.remove('open');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
+            cerrarMenuMovil();
         }
     });
 }
