@@ -1081,23 +1081,33 @@ section{ padding:70px 5%; }
     padding-left:10px;
 }
 
+/* 🔧 CORRECCIÓN: valores SIEMPRE negros para diferenciar del label rosa */
 .transfer-info .value{
-    font-weight:400;
-    color:var(--negro);
+    font-weight:500;
+    color:var(--negro);        /* negro explícito */
     font-size:1.1rem;
     word-break:break-word;
     padding-left:14px;
     letter-spacing:.3px;
+    text-shadow:none;
 }
 
-#val-clabe{
-    color:var(--rosa-deep);
+/* 🔧 CORRECCIÓN: número de cuenta negro, monoespaciado y destacado */
+#val-clabe,
+.transfer-info .value-clabe{
+    color:var(--negro);        /* antes era rosa-deep → ahora negro */
     letter-spacing:2px;
     font-family:'Courier New',monospace;
     font-size:1.15rem;
-    font-weight:600;
+    font-weight:700;           /* negrita para diferenciar visualmente */
 }
 
+/* Cualquier span dentro de .value hereda negro */
+.transfer-info .value span{
+    color:inherit;
+}
+
+/* Copiar mini (sin cambios) */
 .btn-copy-mini{
     display:inline-flex;
     align-items:center;
@@ -1474,11 +1484,14 @@ section{ padding:70px 5%; }
     .transfer-info .value{
         font-size:1.05rem;
         padding-left:12px;
+        color:var(--negro);
     }
 
-    #val-clabe{
+    #val-clabe,
+    .transfer-info .value-clabe{
         font-size:1.05rem;
         letter-spacing:1.5px;
+        color:var(--negro);
     }
 
     .btn-copy-mini{

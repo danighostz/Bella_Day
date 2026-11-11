@@ -258,9 +258,9 @@ window.addEventListener('resize', () => {
     window.__resizeBgTimer = setTimeout(ajustarFondo, 200);
 }, { passive: true });
 
-// =========================================================
-//  MENÚ HAMBURGUESA (solo móvil)
-// =========================================================
+
+//  MENÚ HAMBURGUESA
+
 if (hamburger && headerNavEl) {
     hamburger.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -281,7 +281,7 @@ if (hamburger && headerNavEl) {
         }
     });
 
-    // Cerrar menú al presionar ESC
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && headerNavEl.classList.contains('open')) {
             cerrarMenuMovil();
